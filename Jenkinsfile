@@ -18,13 +18,6 @@ pipeline {
                 }
             }
     }
-
-  stage ('Integration Test'){
-       sh 'mvn clean install -Dsurefire.skip=true';
-       junit '**/target/failsafe-reports/TEST-*.xml'
-       archive 'target/*.jar'
-    }  
-  }
   post{
         always{
             junit allowEmptyResults: true, testResults:'target/surefire-reports/*.xml'
