@@ -23,4 +23,5 @@ pipeline {
             junit allowEmptyResults: true, testResults:'target/surefire-reports/*.xml'
         }
       }
+  }
 }
