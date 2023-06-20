@@ -1,5 +1,6 @@
 pipeline {
   agent any
+
   stages {
     stage('Build & Unit test') {
       steps {
@@ -7,15 +8,14 @@ pipeline {
       }
     }
 
-    stage('Static Code Analysis'){
+  stage('Static Code Analysis'){
        sh 'mvn clean verify sonar:sonar -Dsonar.projectName=DeployFront -Dsonar.projectKey=DeployFront -Dsonar.projectVersion=$BUILD_NUMBER';
-}
+    }
 
-    stage ('Integration Test'){
+  stage ('Integration Test'){
        sh 'mvn clean verify -Dsurefire.skip=true';
        junit '**/target/failsafe-reports/TEST-*.xml'
        archive 'target/*.jar'
-}
-
+    }  
   }
 }
